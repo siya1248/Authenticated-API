@@ -32,7 +32,7 @@ namespace AuthenticatedAPI.Controllers
 
             var shoppingCart = _context.shoppingCarts
                 .Include(cart => cart.products)
-                .FirstOrDefault(cart => cart.User == userID);
+                .FirstOrDefault(cart => cart.User == userId);
 
             if(shoppingCart == null)
             {
@@ -47,6 +47,34 @@ namespace AuthenticatedAPI.Controllers
             shoppingCart.products.Remove(productToRemove);
             _context.SaveChanges();
             return NoContent();
+        }
+
+        [HttpPost("add")]
+        {
+            public IActionResult AddItem(int id)
+            {
+                var userId = User.Identity.Name;
+
+                var shoppingCart = _context.shoppingCarts
+                .Include(cart => cart.products)
+                .FirstOrDefault(cart => cart.User == userId);
+
+            if(shoppingCart == null)
+            {
+                shoppingCart = new ShoppingCart { User = userId};
+                _context.ShoppingCarts.Add(shoppingCart);
+            }
+
+            var productToAdd = _context.products.FirstOrDefault(p => p.Id == id);
+            if (productToAdd == null)
+            {
+                return NotFound();
+            }
+
+            shoppingCart.products.Add(productToAdd);
+            _context.SaveChanges();
+            return NoContent();
+            }
         }
     }
 }
