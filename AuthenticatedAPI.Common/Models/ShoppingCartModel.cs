@@ -1,4 +1,4 @@
-﻿namespace AuthenticatedAPI.Common;
+﻿namespace AuthenticatedAPI.Common.Models;
 
 public class ShoppingCartModel
 {
