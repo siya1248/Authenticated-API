@@ -1,3 +1,5 @@
+using Xunit;
+using System.Collections.Generic;
 using AuthenticatedAPI.Common.Models;
 
 namespace AuthenticatedAPI.Test;
