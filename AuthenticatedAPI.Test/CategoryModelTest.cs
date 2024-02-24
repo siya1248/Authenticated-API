@@ -1,3 +1,5 @@
+using AuthenticatedAPI.Common.Models;
+
 namespace AuthenticatedAPI.Test;
 
 public class CategoryModelTest
