@@ -40,5 +40,19 @@ namespace AuthenticatedAPI.Controllers
 
             return Ok(productsInCategory);
         }
+
+        [HttpPost]
+        public IActionResult AddProduct([FromBody] ProductModel product)
+        {
+            if(product == null)
+            {
+                return BadRequest("Product data is missing");
+            }
+
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+        }
     }
 }
